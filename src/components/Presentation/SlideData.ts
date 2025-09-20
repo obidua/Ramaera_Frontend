@@ -64,9 +64,28 @@ export const presentationSlides: Slide[] = [
     type: "content"
   },
 
-  // Current Impact Stats
+  // What is RAMAERA - NEW SLIDE
   {
     id: 4,
+    title: "WHAT IS RAMAERA?",
+    subtitle: "Community-Owned Industrialization Platform",
+    content: [
+      "🤝 Closed community of common people united since 2020",
+      "💡 Bringing together knowledge + funds + networks",
+      "🏭 Example: ₹1 Cr factory = 1,000 people × ₹10,000 each",
+      "📊 Profit sharing: 30% operator, 55% investors, 10% marketing, 5% operations",
+      "👥 Current: 22,000 shareholders → Target: 2,00,000",
+      "🎯 Portfolio approach: Invest small amounts across multiple factories",
+      "🌾 Real example: Farmer invests ₹1 lakh in 30 factories → Earns ₹50,000/year"
+    ],
+    image: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    sourcePage: "AboutPage",
+    type: "content"
+  },
+
+  // Current Impact Stats
+  {
+    id: 5,
     title: "REAL IMPACT, REAL RESULTS",
     subtitle: "Our Current Achievements",
     content: "Factories funded, jobs created, communities empowered",
@@ -83,7 +102,7 @@ export const presentationSlides: Slide[] = [
 
   // How It Works - Overview
   {
-    id: 5,
+    id: 6,
     title: "HOW IT WORKS",
     subtitle: "Your Journey from Shareholder to Factory Co-Owner",
     content: "Simple 8-step process to become a factory co-owner and build India's industrial future",
@@ -100,7 +119,7 @@ export const presentationSlides: Slide[] = [
 
   // Step 1: Get Invited
   {
-    id: 6,
+    id: 7,
     title: "STEP 1: GET INVITED",
     subtitle: "Exclusive Community Access",
     content: [
@@ -116,7 +135,7 @@ export const presentationSlides: Slide[] = [
 
   // Step 2: Buy Share
   {
-    id: 7,
+    id: 8,
     title: "STEP 2: BUY MINIMUM 1 SHARE",
     subtitle: "Become a Lifetime Partner",
     content: [
@@ -132,7 +151,7 @@ export const presentationSlides: Slide[] = [
 
   // Step 3: Explore Projects
   {
-    id: 8,
+    id: 9,
     title: "STEP 3: EXPLORE PROJECTS",
     subtitle: "Browse Live Factory Opportunities",
     content: [
@@ -148,7 +167,7 @@ export const presentationSlides: Slide[] = [
 
   // Step 4: Invest & Earn
   {
-    id: 9,
+    id: 10,
     title: "STEP 4: INVEST & EARN",
     subtitle: "Contribute and Receive Profits",
     content: [
@@ -164,7 +183,7 @@ export const presentationSlides: Slide[] = [
 
   // Live Projects Overview
   {
-    id: 10,
+    id: 11,
     title: "LIVE FACTORY PROJECTS",
     subtitle: "Real Factories, Real Profits, Real Impact",
     content: "Currently operational and upcoming manufacturing ventures",
@@ -175,7 +194,7 @@ export const presentationSlides: Slide[] = [
 
   // Spice Factory Success
   {
-    id: 11,
+    id: 12,
     title: "SUCCESS STORY: SPICE FACTORY",
     subtitle: "Hajipur, Bihar - ₹2.2 Crore Investment",
     content: [
@@ -192,7 +211,7 @@ export const presentationSlides: Slide[] = [
 
   // Supermarket Success
   {
-    id: 12,
+    id: 13,
     title: "SUCCESS STORY: RAMAERA MART",
     subtitle: "Agra, UP - ₹45 Lacs Investment",
     content: [
@@ -209,7 +228,7 @@ export const presentationSlides: Slide[] = [
 
   // Industries We Target
   {
-    id: 13,
+    id: 14,
     title: "TARGET INDUSTRIES",
     subtitle: "Manufacturing Across Every Sector",
     content: [
@@ -229,7 +248,7 @@ export const presentationSlides: Slide[] = [
 
   // Profit Distribution
   {
-    id: 14,
+    id: 15,
     title: "PROFIT DISTRIBUTION MODEL",
     subtitle: "How Factory Earnings Are Shared",
     content: [
@@ -245,7 +264,7 @@ export const presentationSlides: Slide[] = [
 
   // Example Calculation
   {
-    id: 15,
+    id: 16,
     title: "PROFIT EXAMPLE",
     subtitle: "₹1 Crore Factory with ₹10 Lakh Monthly Profit",
     content: [
@@ -261,7 +280,7 @@ export const presentationSlides: Slide[] = [
 
   // Who Can Join
   {
-    id: 16,
+    id: 17,
     title: "WHO CAN JOIN RAMAERA",
     subtitle: "After Becoming a Shareholder, You Can:",
     content: [
@@ -278,7 +297,7 @@ export const presentationSlides: Slide[] = [
 
   // Community Stats
   {
-    id: 17,
+    id: 18,
     title: "THRIVING COMMUNITY",
     subtitle: "Join India's Largest Industrial Investment Community",
     content: "Building India's industrial future together",
@@ -295,7 +314,7 @@ export const presentationSlides: Slide[] = [
 
   // Why Choose Ramaera
   {
-    id: 18,
+    id: 19,
     title: "WHY CHOOSE RAMAERA?",
     subtitle: "Unique Benefits of Community Ownership",
     content: [
@@ -312,7 +331,7 @@ export const presentationSlides: Slide[] = [
 
   // Factory Application Process
   {
-    id: 19,
+    id: 20,
     title: "APPLY FOR YOUR FACTORY",
     subtitle: "For Skilled People Without Funds",
     content: [
@@ -328,7 +347,7 @@ export const presentationSlides: Slide[] = [
 
   // Examples of Dreamers
   {
-    id: 20,
+    id: 21,
     title: "DREAMERS WE HELP",
     subtitle: "Real People Building Real Factories",
     content: [
@@ -344,7 +363,7 @@ export const presentationSlides: Slide[] = [
 
   // Coming Soon Projects
   {
-    id: 21,
+    id: 22,
     title: "UPCOMING PROJECTS",
     subtitle: "Next Wave of Factories in Development",
     content: [
@@ -361,7 +380,7 @@ export const presentationSlides: Slide[] = [
 
   // Investment Terms
   {
-    id: 22,
+    id: 23,
     title: "INVESTMENT TERMS",
     subtitle: "Important Information for Shareholders",
     content: [
@@ -378,7 +397,7 @@ export const presentationSlides: Slide[] = [
 
   // Shareholding Benefits
   {
-    id: 23,
+    id: 24,
     title: "SHAREHOLDER BENEFITS",
     subtitle: "What You Get as a Ramaera Partner",
     content: [
@@ -395,7 +414,7 @@ export const presentationSlides: Slide[] = [
 
   // Community Journey
   {
-    id: 24,
+    id: 25,
     title: "OUR JOURNEY",
     subtitle: "From Vision to Reality",
     content: [
@@ -410,7 +429,7 @@ export const presentationSlides: Slide[] = [
 
   // Risk Disclosure
   {
-    id: 25,
+    id: 26,
     title: "RISK DISCLOSURE",
     subtitle: "Important Investment Considerations",
     content: [
@@ -427,7 +446,7 @@ export const presentationSlides: Slide[] = [
 
   // Generational Impact
   {
-    id: 26,
+    id: 27,
     title: "BUILDING LEGACY",
     subtitle: "Generational Wealth Through Industrial Ownership",
     content: [
@@ -443,7 +462,7 @@ export const presentationSlides: Slide[] = [
 
   // Quote Slide
   {
-    id: 27,
+    id: 28,
     title: "OUR PHILOSOPHY",
     subtitle: "",
     content: "We are not raising money — we are raising a nation of industrialists.",
