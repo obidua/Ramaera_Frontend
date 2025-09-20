@@ -35,6 +35,40 @@ const iconMap: Record<string, React.ComponentType<any>> = {
 };
 
 export const SlideTemplate: React.FC<SlideTemplateProps> = ({ slide, currentSlide, totalSlides }) => {
+  // Helper function to render list items with proper alignment
+  const renderListItemContent = (item: string) => {
+    // Check if the item starts with an emoji or bullet
+    const emojiRegex = /^[\u{1F300}-\u{1F9FF}]|^[\u{2600}-\u{26FF}]|^[\u{2700}-\u{27BF}]|^•/u;
+    const match = item.match(emojiRegex);
+    
+    if (match) {
+      const icon = match[0];
+      const text = item.slice(icon.length).trim();
+      return (
+        <div className="flex items-start">
+          <span className="w-6 sm:w-8 flex-shrink-0 mr-2 sm:mr-3 text-accent-400 text-sm sm:text-base">
+            {icon}
+          </span>
+          <span className="flex-grow text-sm sm:text-base md:text-lg leading-relaxed">
+            {text}
+          </span>
+        </div>
+      );
+    }
+    
+    // If no emoji/bullet, render normally with consistent indentation
+    return (
+      <div className="flex items-start">
+        <span className="w-6 sm:w-8 flex-shrink-0 mr-2 sm:mr-3 text-accent-400 text-sm sm:text-base">
+          •
+        </span>
+        <span className="flex-grow text-sm sm:text-base md:text-lg leading-relaxed">
+          {item}
+        </span>
+      </div>
+    );
+  };
+
   const renderContent = () => {
     switch (slide.type) {
       case 'title':
@@ -262,13 +296,12 @@ export const SlideTemplate: React.FC<SlideTemplateProps> = ({ slide, currentSlid
                   {slide.content.map((item, index) => (
                     <motion.li
                       key={index}
-                      className="text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed flex items-start"
+                      className="text-gray-300"
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.4, delay: index * 0.1 + 0.6 }}
                     >
-                      <span className="mr-2 sm:mr-3 text-accent-400 flex-shrink-0">•</span>
-                      {item}
+                      {renderListItemContent(item)}
                     </motion.li>
                   ))}
                 </ul>
