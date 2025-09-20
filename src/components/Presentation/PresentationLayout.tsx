@@ -31,64 +31,33 @@ export const PresentationLayout: React.FC = () => {
 
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % totalSlides);
-    }, 5000); // 5 seconds per slide
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [isAutoPlay, totalSlides]);
 
-  // Fullscreen toggle function with extensive logging
-  const toggleFullScreen = useCallback(async () => {
-    console.log('🔄 Attempting to toggle full screen...');
-    console.log('📊 Current fullscreen element:', document.fullscreenElement);
-    console.log('🌐 Browser supports fullscreen:', 'requestFullscreen' in document.documentElement);
+  // Custom fullscreen toggle (container-based, not browser fullscreen)
+  const toggleFullScreen = useCallback(() => {
+    setIsFullScreen(prev => !prev);
     
-    if (!document.fullscreenElement) {
-      try {
-        console.log('📈 Requesting fullscreen...');
-        await document.documentElement.requestFullscreen();
-        console.log('✅ Successfully entered full screen.');
-      } catch (err: any) {
-        console.error('❌ Error entering fullscreen:', err);
-        console.error('Error name:', err.name);
-        console.error('Error message:', err.message);
-        alert(`Full-screen mode could not be activated. Reason: ${err.message}. Please ensure your browser allows full-screen for this site.`);
-      }
-    } else {
-      try {
-        console.log('📉 Exiting fullscreen...');
-        await document.exitFullscreen();
-        console.log('✅ Successfully exited full screen.');
-      } catch (err: any) {
-        console.error('❌ Error exiting fullscreen:', err);
-        console.error('Error name:', err.name);
-        console.error('Error message:', err.message);
+    // Hide/show website header when entering/exiting fullscreen
+    const navbar = document.querySelector('header');
+    if (navbar) {
+      if (!isFullScreen) {
+        navbar.style.display = 'none';
+      } else {
+        navbar.style.display = 'block';
       }
     }
-  }, []);
+  }, [isFullScreen]);
 
-  // Listen for fullscreen change events with extensive browser support
+  // Cleanup: Show navbar when component unmounts
   useEffect(() => {
-    const handleFullScreenChange = () => {
-      const newFullScreenStatus = !!document.fullscreenElement;
-      console.log('🔄 Fullscreen status changed to:', newFullScreenStatus);
-      console.log('📊 Document fullscreen element:', document.fullscreenElement);
-      setIsFullScreen(newFullScreenStatus);
-    };
-
-    // Add event listeners for various browser prefixes
-    document.addEventListener('fullscreenchange', handleFullScreenChange);
-    document.addEventListener('webkitfullscreenchange', handleFullScreenChange);
-    document.addEventListener('mozfullscreenchange', handleFullScreenChange);
-    document.addEventListener('MSFullscreenChange', handleFullScreenChange);
-
-    // Initial check
-    setIsFullScreen(!!document.fullscreenElement);
-
     return () => {
-      document.removeEventListener('fullscreenchange', handleFullScreenChange);
-      document.removeEventListener('webkitfullscreenchange', handleFullScreenChange);
-      document.removeEventListener('mozfullscreenchange', handleFullScreenChange);
-      document.removeEventListener('MSFullscreenChange', handleFullScreenChange);
+      const navbar = document.querySelector('header');
+      if (navbar) {
+        navbar.style.display = 'block';
+      }
     };
   }, []);
 
@@ -106,7 +75,11 @@ export const PresentationLayout: React.FC = () => {
           prevSlide();
           break;
         case 'Escape':
-          navigate('/');
+          if (isFullScreen) {
+            toggleFullScreen();
+          } else {
+            navigate('/');
+          }
           break;
         case 'Home':
           setCurrentSlide(0);
@@ -124,7 +97,7 @@ export const PresentationLayout: React.FC = () => {
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [navigate, totalSlides, toggleFullScreen]);
+  }, [navigate, totalSlides, toggleFullScreen, isFullScreen]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % totalSlides);
@@ -144,10 +117,16 @@ export const PresentationLayout: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+    <div className={`bg-black text-white relative overflow-hidden transition-all duration-500 ${
+      isFullScreen 
+        ? 'fixed inset-0 z-[9999]' 
+        : 'min-h-screen'
+    }`}>
       {/* Navigation Controls */}
       <motion.div
-        className="fixed top-4 left-4 right-4 z-50 flex items-center justify-between"
+        className={`fixed left-4 right-4 z-50 flex items-center justify-between transition-all duration-300 ${
+          isFullScreen ? 'top-4' : 'top-4'
+        }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
@@ -155,15 +134,20 @@ export const PresentationLayout: React.FC = () => {
         {/* Left Controls */}
         <div className="flex items-center space-x-3">
           <motion.button
-            onClick={() => navigate('/')}
+            onClick={() => {
+              if (isFullScreen) {
+                toggleFullScreen();
+              }
+              navigate('/');
+            }}
             className="cyber-card p-3 hover:border-white/40 transition-all duration-200"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             title="Exit Presentation"
           >
-            <Home className="h-5 w-5 text-white" />
+            {isFullScreen ? <X className="h-5 w-5 text-white" /> : <Home className="h-5 w-5 text-white" />}
           </motion.button>
-          
+
           <motion.button
             onClick={resetPresentation}
             className="cyber-card p-3 hover:border-white/40 transition-all duration-200"
@@ -215,7 +199,7 @@ export const PresentationLayout: React.FC = () => {
             )}
           </motion.button>
 
-          {/* Enhanced Fullscreen Toggle Button */}
+          {/* Custom Fullscreen Toggle Button */}
           <motion.button
             onClick={toggleFullScreen}
             className={`cyber-card p-3 transition-all duration-200 ${
@@ -314,45 +298,65 @@ export const PresentationLayout: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Slide Thumbnails (Optional - can be toggled) */}
-      <motion.div
-        className="fixed right-4 top-1/2 transform -translate-y-1/2 z-40 max-h-96 overflow-y-auto"
-        initial={{ x: 100, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-      >
-        <div className="space-y-2">
-          {presentationSlides.map((_, index) => (
-            <motion.button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                currentSlide === index
-                  ? 'bg-accent-500 shadow-neon'
-                  : 'bg-gray-600 hover:bg-gray-500'
-              }`}
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-              title={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-      </motion.div>
+      {/* Slide Thumbnails - Hidden in fullscreen for cleaner view */}
+      {!isFullScreen && (
+        <motion.div
+          className="fixed right-4 top-1/2 transform -translate-y-1/2 z-40 max-h-96 overflow-y-auto"
+          initial={{ x: 100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ x: 100, opacity: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          <div className="space-y-2">
+            {presentationSlides.map((_, index) => (
+              <motion.button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                  currentSlide === index
+                    ? 'bg-accent-500 shadow-neon'
+                    : 'bg-gray-600 hover:bg-gray-500'
+                }`}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+                title={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+        </motion.div>
+      )}
 
-      {/* Enhanced Keyboard Shortcuts Help */}
-      <motion.div
-        className="fixed bottom-4 right-4 cyber-card p-3 text-xs text-gray-400"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-      >
-        <div className="space-y-1">
-          <div>← → Navigate</div>
-          <div>Space: Next</div>
-          <div>Esc: Exit</div>
-          <div>F: Fullscreen</div>
-        </div>
-      </motion.div>
+      {/* Keyboard Shortcuts Help - Hidden in fullscreen */}
+      {!isFullScreen && (
+        <motion.div
+          className="fixed bottom-4 right-4 cyber-card p-3 text-xs text-gray-400"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ delay: 1 }}
+        >
+          <div className="space-y-1">
+            <div>← → Navigate</div>
+            <div>Space: Next</div>
+            <div>Esc: Exit</div>
+            <div>F: Fullscreen</div>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Fullscreen Mode Indicator */}
+      {isFullScreen && (
+        <motion.div
+          className="fixed top-1/2 left-4 transform -translate-y-1/2 cyber-card p-2 z-40"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+        >
+          <div className="text-xs text-green-400 font-['Orbitron'] writing-mode-vertical">
+            FULLSCREEN MODE
+          </div>
+        </motion.div>
+      )}
     </div>
   );
 };
