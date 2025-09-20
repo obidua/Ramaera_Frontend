@@ -1,0 +1,780 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* global.css or inside a global stylesheet */
+input,
+button,
+a,
+select,
+textarea,
+label {
+  position: relative; /* Required to apply z-index */
+  z-index: 2147483647; /* Max 32-bit signed integer */
+}
+
+
+@layer base {
+  html {
+    font-family: "Inter", system-ui, sans-serif;
+    scroll-behavior: auto;
+  }
+  html,
+body,
+#root {
+  height: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+
+  body {
+    @apply antialiased bg-black text-white overflow-x-hidden;
+    overscroll-behavior: none;
+    background-image: radial-gradient(
+        circle at 20% 80%,
+        rgba(255, 255, 255, 0.05) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(6, 182, 212, 0.1) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 40% 40%,
+        rgba(251, 191, 36, 0.05) 0%,
+        transparent 50%
+      );
+    perspective: 1000px;
+  }
+
+  * {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+@layer components {
+  /* Enhanced page loader styles */
+  .page-loader {
+    transition: opacity 0.8s ease-out, visibility 0.8s ease-out,
+      transform 0.8s ease-out;
+    backdrop-filter: blur(10px);
+  }
+
+  .page-loader.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 1.5s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 1.2s ease-out;
+  }
+
+  .animate-bounce-gentle {
+    animation: bounceGentle 4s infinite;
+  }
+
+  /* Enhanced cyber card with 3D effects */
+  .cyber-card {
+    @apply bg-black/80 border-2 border-white/20 rounded-xl backdrop-blur-xl relative overflow-hidden;
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(6, 182, 212, 0.05) 100%);
+    transition: all 0.3s ease;
+  }
+
+  .cyber-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.15),
+      transparent
+    );
+    transition: left 0.5s;
+    z-index: 1;
+  }
+
+  .cyber-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    border-radius: inherit;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .cyber-card:hover::before {
+    left: 100%;
+  }
+
+  .cyber-card:hover::after {
+    opacity: 1;
+  }
+
+  .cyber-card:hover {
+    @apply border-white/40 shadow-neon;
+    transform: translateY(-2px);
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+  }
+
+  /* Enhanced glow button with 3D effects */
+  .glow-button {
+    @apply bg-gradient-to-r from-white to-accent-500 text-black font-bold rounded-xl relative overflow-hidden;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3),
+      0 0 40px rgba(255, 255, 255, 0.2), inset 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+  }
+
+  .glow-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0, 0, 0, 0.1),
+      transparent
+    );
+    transition: left 0.4s;
+  }
+
+  .glow-button::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.1),
+      transparent,
+      rgba(255, 255, 255, 0.1)
+    );
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .glow-button:hover::before {
+    left: 100%;
+  }
+
+  .glow-button:hover::after {
+    opacity: 1;
+  }
+
+  .glow-button:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.5),
+      0 0 60px rgba(255, 255, 255, 0.3), 0 0 90px rgba(255, 255, 255, 0.2),
+      inset 0 0 30px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Enhanced golden accent with pulsing effect */
+  .golden-accent {
+    @apply text-yellow-400;
+    text-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1),
+      0 0 20px rgba(255, 255, 255, 0.2), 0 0 40px rgba(255, 255, 255, 0.1);
+    animation: neonPulse 4s ease-in-out infinite alternate;
+  }
+
+  /* Enhanced cyber text with animated gradient */
+  .cyber-text {
+    @apply text-transparent bg-clip-text;
+    background-image: linear-gradient(
+      45deg,
+      #ffffff,
+      #22d3ee,
+      #fbbf24,
+      #ffffff
+    );
+    background-size: 400% 400%;
+    animation: hologram 6s ease-in-out infinite;
+  }
+
+  /* Enhanced neon border with 3D depth */
+  .neon-border {
+    @apply border-2 border-white/30 rounded-xl relative;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1),
+      0 0 15px rgba(255, 255, 255, 0.2);
+    animation: borderGlow 3s ease-in-out infinite alternate;
+  }
+
+  .neon-border::after {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #ffffff, #22d3ee, #fbbf24, #ffffff);
+    background-size: 400% 400%;
+    border-radius: inherit;
+    z-index: -1;
+    animation: hologram 4s ease-in-out infinite;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .neon-border:hover::after {
+    opacity: 0.8;
+  }
+
+  /* Enhanced shimmer effect */
+  .shimmer-effect {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2.5s infinite;
+  }
+
+  /* Enhanced floating animation with 3D rotation */
+  .floating-icon {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Enhanced pulse glow with color cycling */
+  .pulse-glow {
+    animation: glowCycle 3s ease-in-out infinite alternate;
+  }
+
+  /* Enhanced matrix background */
+  .matrix-bg {
+    background-image: linear-gradient(
+        0deg,
+        transparent 24%,
+        rgba(255, 255, 255, 0.02) 25%,
+        rgba(255, 255, 255, 0.02) 26%,
+        transparent 27%,
+        transparent 74%,
+        rgba(255, 255, 255, 0.02) 75%,
+        rgba(255, 255, 255, 0.02) 76%,
+        transparent 77%,
+        transparent
+      ),
+      linear-gradient(
+        90deg,
+        transparent 24%,
+        rgba(6, 182, 212, 0.02) 25%,
+        rgba(6, 182, 212, 0.02) 26%,
+        transparent 27%,
+        transparent 74%,
+        rgba(6, 182, 212, 0.02) 75%,
+        rgba(6, 182, 212, 0.02) 76%,
+        transparent 77%,
+        transparent
+      );
+    background-size: 40px 40px, 40px 40px;
+    animation: matrixFlow 25s linear infinite;
+  }
+
+  /* Enhanced holographic effect */
+  .holographic {
+    background: linear-gradient(
+      45deg,
+      #ffffff,
+      #22d3ee,
+      #fbbf24,
+      #ff6b6b,
+      #ffffff
+    );
+    background-size: 400% 400%;
+    animation: holographicFlow 8s ease-in-out infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  }
+
+  /* Enhanced data stream */
+  .data-stream {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .data-stream::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      #22d3ee,
+      #fbbf24,
+      transparent
+    );
+    animation: dataStreamFlow 4s linear infinite;
+  }
+
+  /* Enhanced cyber grid background */
+  .cyber-grid-bg {
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.03) 1px,
+        transparent 1px
+      ),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridShift 20s linear infinite;
+  }
+
+  /* Enhanced GIF container with advanced effects */
+  .gif-container {
+    @apply relative overflow-hidden rounded-xl;
+    background: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(34, 211, 238, 0.05)
+    );
+  }
+
+  .gif-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      45deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 70%
+    );
+    animation: cyberScanAdvanced 4s ease-in-out infinite;
+    z-index: 1;
+  }
+
+  .gif-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at center,
+      transparent 40%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: 2;
+  }
+
+  .gif-container:hover::after {
+    opacity: 1;
+  }
+
+  .gif-container img {
+    transition: all 0.4s ease;
+    filter: brightness(0.9) contrast(1.1) saturate(1.05);
+  }
+
+  .gif-container:hover img {
+    filter: brightness(1.05) contrast(1.2) saturate(1.15);
+    transform: scale(1.03);
+  }
+
+  /* Enhanced liquid morph */
+  .liquid-morph {
+    animation: liquidMorphAdvanced 8s ease-in-out infinite;
+  }
+
+  /* Enhanced glitch hover */
+  .glitch-hover {
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .glitch-hover:hover {
+    animation: glitchAdvanced 0.2s ease-in-out;
+  }
+
+  /* Enhanced tilt card with depth */
+  .tilt-card {
+    transition: transform 0.4s ease;
+  }
+
+  /* Enhanced reveal animations */
+  .reveal-card {
+    opacity: 0;
+    transform: translateY(80px) rotateY(25deg) scale(0.9);
+  }
+
+  .reveal-text {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+    filter: blur(8px);
+  }
+
+  .stagger-grid .stagger-item {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+
+  /* Enhanced typewriter */
+  .typewriter {
+    overflow: hidden;
+    border-right: 3px solid rgba(255, 255, 255, 0.8);
+    white-space: nowrap;
+    animation: blinkCaret 1.2s step-end infinite;
+  }
+
+  /* Enhanced magnetic effect */
+  .magnetic {
+    transition: transform 0.4s ease;
+  }
+
+  .scroll-text {
+    white-space: nowrap;
+  }
+
+  .particle-system {
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .cyber-card {
+      @apply mx-2;
+      transform: translateY(0) !important;
+    }
+
+    .glow-button {
+      @apply text-sm px-4 py-2;
+    }
+
+    .holographic {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+    }
+
+    .cyber-text {
+      font-size: clamp(1.2rem, 3vw, 2rem);
+    }
+
+    .tilt-card {
+      transform: translateY(0) !important;
+    }
+  }
+}
+
+/* Enhanced custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+  border-radius: 8px;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #ffffff, #22d3ee, #fbbf24);
+  border-radius: 8px;
+  border: 2px solid #000000;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #f0f0f0, #06b6d4, #f59e0b);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+/* Enhanced focus styles */
+.focus-visible {
+  @apply outline-none ring-2 ring-white ring-offset-2 ring-offset-black;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Enhanced button hover effects */
+.btn-hover-lift {
+  @apply transition-all duration-200 transform hover:scale-105 hover:shadow-neon;
+}
+
+.btn-hover-lift:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* Enhanced card hover effects */
+.card-hover {
+  @apply transition-all duration-200 hover:shadow-neon;
+}
+
+.card-hover:hover {
+  transform: translateY(-3px);
+}
+
+/* Enhanced keyframe animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(25px) scale(0.98);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bounceGentle {
+  0%,
+  100% {
+    transform: translateY(0) rotateZ(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotateZ(1deg);
+  }
+}
+
+@keyframes glowCycle {
+  0% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(34, 211, 238, 0.5);
+    filter: brightness(1.2);
+  }
+  100% {
+    box-shadow: 0 0 40px rgba(251, 191, 36, 0.6);
+    filter: brightness(1.4);
+  }
+}
+
+@keyframes float3D {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  75% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes borderGlow {
+  0% {
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+  }
+  100% {
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+}
+
+@keyframes matrixFlow {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-40px);
+  }
+}
+
+@keyframes neonPulse {
+  0% {
+    text-shadow: 0 0 5px rgba(251, 191, 36, 0.5),
+      0 0 10px rgba(251, 191, 36, 0.5), 0 0 15px rgba(251, 191, 36, 0.5);
+    transform: scale(1);
+  }
+  100% {
+    text-shadow: 0 0 8px rgba(251, 191, 36, 0.7),
+      0 0 15px rgba(251, 191, 36, 0.7), 0 0 25px rgba(251, 191, 36, 0.7);
+    transform: scale(1.02);
+  }
+}
+
+@keyframes cyberScanAdvanced {
+  0% {
+    transform: translateX(-100%) skewX(-10deg);
+  }
+  50% {
+    transform: translateX(100%) skewX(-10deg);
+  }
+  100% {
+    transform: translateX(-100%) skewX(-10deg);
+  }
+}
+
+@keyframes holographicFlow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg);
+  }
+  25% {
+    background-position: 100% 50%;
+    filter: hue-rotate(90deg);
+  }
+  50% {
+    background-position: 100% 100%;
+    filter: hue-rotate(180deg);
+  }
+  75% {
+    background-position: 0% 100%;
+    filter: hue-rotate(270deg);
+  }
+}
+
+@keyframes dataStreamFlow {
+  0% {
+    transform: translateY(-100%) scaleY(0);
+  }
+  50% {
+    transform: translateY(0%) scaleY(1);
+  }
+  100% {
+    transform: translateY(100%) scaleY(0);
+  }
+}
+
+@keyframes liquidMorphAdvanced {
+  0%,
+  100% {
+    border-radius: 50% 40% 30% 60% / 50% 30% 60% 40%;
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    border-radius: 30% 50% 60% 40% / 40% 50% 30% 50%;
+    transform: rotate(90deg) scale(1.05);
+  }
+  50% {
+    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+    transform: rotate(180deg) scale(0.95);
+  }
+  75% {
+    border-radius: 60% 30% 40% 50% / 40% 60% 50% 30%;
+    transform: rotate(270deg) scale(1.02);
+  }
+}
+
+@keyframes blinkCaret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+@keyframes glitchAdvanced {
+  0%,
+  100% {
+    transform: translate(0);
+    filter: none;
+  }
+  10% {
+    transform: translate(-1px, 1px);
+  }
+  20% {
+    transform: translate(-1px, -1px);
+  }
+  30% {
+    transform: translate(1px, 1px);
+  }
+  40% {
+    transform: translate(1px, -1px);
+  }
+  50% {
+    transform: translate(-1px, 1px);
+  }
+  60% {
+    transform: translate(-1px, -1px);
+  }
+  70% {
+    transform: translate(1px, 1px);
+  }
+  80% {
+    transform: translate(1px, -1px);
+  }
+  90% {
+    transform: translate(-1px, 1px);
+  }
+}
+
+@keyframes gridShift {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(20px, 20px);
+  }
+}
+
+@keyframes hologram {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Loading animations */
+.loading-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Toast container positioning */
+.toast-container {
+  z-index: 9999 !important;
+}
