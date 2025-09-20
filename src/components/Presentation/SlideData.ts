@@ -454,7 +454,7 @@ export const presentationSlides: Slide[] = [
 
   // Call to Action
   {
-    id: 28,
+    id: 29,
     title: "JOIN THE REVOLUTION",
     subtitle: "Ready to Build India's Industrial Future?",
     content: [
