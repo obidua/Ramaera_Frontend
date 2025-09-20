@@ -67,7 +67,7 @@ export const presentationSlides: Slide[] = [
   // What is RAMAERA - NEW SLIDE
   {
     id: 4,
-    title: "WHAT IS RAMAERA? - PART 1",
+    title: "WHAT IS RAMAERA? - STEP 1",
     subtitle: "The Core Ideology: Community-Owned Industrialization",
     content: [
       "🤝 A closed community of common people, united since 2020",
@@ -88,7 +88,7 @@ export const presentationSlides: Slide[] = [
   // What is RAMAERA Part 2 - NEW SLIDE
   {
     id: 5,
-    title: "WHAT IS RAMAERA? - PART 2",
+    title: "WHAT IS RAMAERA? - STEP 2",
     subtitle: "The Financial Model & Scalable Impact",
     content: [
       "💰 Funding Example: ₹1 Cr factory = 1,000 people × ₹10,000 each",
