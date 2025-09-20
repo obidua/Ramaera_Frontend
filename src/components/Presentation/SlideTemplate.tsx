@@ -330,7 +330,7 @@ export const SlideTemplate: React.FC<SlideTemplateProps> = ({ slide, currentSlid
       <div className="absolute inset-0 cyber-grid-bg opacity-20 z-5"></div>
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-6 sm:pb-8 md:pb-12">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-16 sm:pb-20 md:pb-24">
         {renderContent()}
       </div>
 
