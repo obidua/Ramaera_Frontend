@@ -245,31 +245,31 @@ export const PresentationLayout: React.FC = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <div className="flex items-center space-x-2 sm:space-x-4">
+        <div className="flex items-center justify-center space-x-1 sm:space-x-2 md:space-x-4 px-2">
           <motion.button
             onClick={() => setCurrentSlide(0)}
             disabled={currentSlide === 0}
-            className="cyber-card p-2 sm:p-3 disabled:opacity-50 disabled:cursor-not-allowed hover:border-white/40 transition-all duration-200"
+            className="cyber-card px-2 py-1.5 sm:p-3 disabled:opacity-50 disabled:cursor-not-allowed hover:border-white/40 transition-all duration-200"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             title="First Slide"
           >
-            <SkipBack className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+            <SkipBack className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 text-white" />
           </motion.button>
 
           <motion.button
             onClick={prevSlide}
             disabled={currentSlide === 0}
-            className="cyber-card p-3 sm:p-4 disabled:opacity-50 disabled:cursor-not-allowed hover:border-white/40 transition-all duration-200"
+            className="cyber-card px-2 py-2 sm:p-3 md:p-4 disabled:opacity-50 disabled:cursor-not-allowed hover:border-white/40 transition-all duration-200"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             title="Previous Slide"
           >
-            <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+            <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-white" />
           </motion.button>
 
-          <div className="cyber-card px-3 sm:px-6 py-2 sm:py-3">
-            <span className="text-sm sm:text-base text-white font-bold font-['Orbitron']">
+          <div className="cyber-card px-2 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-3">
+            <span className="text-xs sm:text-sm md:text-base text-white font-bold font-['Orbitron']">
               {currentSlide + 1} / {totalSlides}
             </span>
           </div>
@@ -277,23 +277,23 @@ export const PresentationLayout: React.FC = () => {
           <motion.button
             onClick={nextSlide}
             disabled={currentSlide === totalSlides - 1}
-            className="cyber-card p-3 sm:p-4 disabled:opacity-50 disabled:cursor-not-allowed hover:border-white/40 transition-all duration-200"
+            className="cyber-card px-2 py-2 sm:p-3 md:p-4 disabled:opacity-50 disabled:cursor-not-allowed hover:border-white/40 transition-all duration-200"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             title="Next Slide"
           >
-            <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+            <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-white" />
           </motion.button>
 
           <motion.button
             onClick={() => setCurrentSlide(totalSlides - 1)}
             disabled={currentSlide === totalSlides - 1}
-            className="cyber-card p-2 sm:p-3 disabled:opacity-50 disabled:cursor-not-allowed hover:border-white/40 transition-all duration-200"
+            className="cyber-card px-2 py-1.5 sm:p-3 disabled:opacity-50 disabled:cursor-not-allowed hover:border-white/40 transition-all duration-200"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             title="Last Slide"
           >
-            <SkipForward className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+            <SkipForward className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 text-white" />
           </motion.button>
         </div>
       </motion.div>
