@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ChevronLeft, 
@@ -9,7 +9,9 @@ import {
   Play,
   Pause,
   SkipBack,
-  SkipForward
+  SkipForward,
+  Maximize,
+  Minimize
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { SlideTemplate } from './SlideTemplate';
@@ -18,6 +20,7 @@ import { presentationSlides } from './SlideData';
 export const PresentationLayout: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(false);
   const navigate = useNavigate();
 
   const totalSlides = presentationSlides.length;
@@ -32,6 +35,62 @@ export const PresentationLayout: React.FC = () => {
 
     return () => clearInterval(interval);
   }, [isAutoPlay, totalSlides]);
+
+  // Fullscreen toggle function with extensive logging
+  const toggleFullScreen = useCallback(async () => {
+    console.log('🔄 Attempting to toggle full screen...');
+    console.log('📊 Current fullscreen element:', document.fullscreenElement);
+    console.log('🌐 Browser supports fullscreen:', 'requestFullscreen' in document.documentElement);
+    
+    if (!document.fullscreenElement) {
+      try {
+        console.log('📈 Requesting fullscreen...');
+        await document.documentElement.requestFullscreen();
+        console.log('✅ Successfully entered full screen.');
+      } catch (err: any) {
+        console.error('❌ Error entering fullscreen:', err);
+        console.error('Error name:', err.name);
+        console.error('Error message:', err.message);
+        alert(`Full-screen mode could not be activated. Reason: ${err.message}. Please ensure your browser allows full-screen for this site.`);
+      }
+    } else {
+      try {
+        console.log('📉 Exiting fullscreen...');
+        await document.exitFullscreen();
+        console.log('✅ Successfully exited full screen.');
+      } catch (err: any) {
+        console.error('❌ Error exiting fullscreen:', err);
+        console.error('Error name:', err.name);
+        console.error('Error message:', err.message);
+      }
+    }
+  }, []);
+
+  // Listen for fullscreen change events with extensive browser support
+  useEffect(() => {
+    const handleFullScreenChange = () => {
+      const newFullScreenStatus = !!document.fullscreenElement;
+      console.log('🔄 Fullscreen status changed to:', newFullScreenStatus);
+      console.log('📊 Document fullscreen element:', document.fullscreenElement);
+      setIsFullScreen(newFullScreenStatus);
+    };
+
+    // Add event listeners for various browser prefixes
+    document.addEventListener('fullscreenchange', handleFullScreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullScreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullScreenChange);
+    document.addEventListener('MSFullscreenChange', handleFullScreenChange);
+
+    // Initial check
+    setIsFullScreen(!!document.fullscreenElement);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullScreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullScreenChange);
+      document.removeEventListener('mozfullscreenchange', handleFullScreenChange);
+      document.removeEventListener('MSFullscreenChange', handleFullScreenChange);
+    };
+  }, []);
 
   // Keyboard navigation
   useEffect(() => {
@@ -55,12 +114,17 @@ export const PresentationLayout: React.FC = () => {
         case 'End':
           setCurrentSlide(totalSlides - 1);
           break;
+        case 'f':
+        case 'F':
+          e.preventDefault();
+          toggleFullScreen();
+          break;
       }
     };
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [navigate, totalSlides]);
+  }, [navigate, totalSlides, toggleFullScreen]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % totalSlides);
@@ -148,6 +212,25 @@ export const PresentationLayout: React.FC = () => {
               <Pause className="h-5 w-5 text-accent-400" />
             ) : (
               <Play className="h-5 w-5 text-white" />
+            )}
+          </motion.button>
+
+          {/* Enhanced Fullscreen Toggle Button */}
+          <motion.button
+            onClick={toggleFullScreen}
+            className={`cyber-card p-3 transition-all duration-200 ${
+              isFullScreen 
+                ? 'border-green-500/50 bg-green-500/10 shadow-neon' 
+                : 'hover:border-white/40'
+            }`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            title={isFullScreen ? "Exit Fullscreen (F)" : "Enter Fullscreen (F)"}
+          >
+            {isFullScreen ? (
+              <Minimize className="h-5 w-5 text-green-400" />
+            ) : (
+              <Maximize className="h-5 w-5 text-white" />
             )}
           </motion.button>
         </div>
@@ -256,7 +339,7 @@ export const PresentationLayout: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Keyboard Shortcuts Help */}
+      {/* Enhanced Keyboard Shortcuts Help */}
       <motion.div
         className="fixed bottom-4 right-4 cyber-card p-3 text-xs text-gray-400"
         initial={{ opacity: 0 }}
@@ -267,6 +350,7 @@ export const PresentationLayout: React.FC = () => {
           <div>← → Navigate</div>
           <div>Space: Next</div>
           <div>Esc: Exit</div>
+          <div>F: Fullscreen</div>
         </div>
       </motion.div>
     </div>
