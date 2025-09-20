@@ -18,6 +18,7 @@ import MonthlySpiceSubscription from './components/MonthlySpiceSubscription'
 import AdminPanel from './pages/AdminPanel';
 import AdminLogin from './pages/AdminLogin';
 import ResetPassword from './components/ResetPassword';
+import PresentationPage from './pages/PresentationPage';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="contact" element={<ContactPage />} />
           <Route path="apply" element={<ApplyFactoryPage />} />
           <Route path="monthly-spice-subscription" element={<MonthlySpiceSubscription />} />
+          <Route path="presentation" element={<PresentationPage />} />
 
         </Route>
         <Route path="/admin-login" element={<AdminLogin />} />

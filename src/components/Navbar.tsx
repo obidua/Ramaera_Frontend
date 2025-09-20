@@ -58,7 +58,7 @@ const Navbar = () => {
 
                     {/* Enhanced Desktop Navigation */}
                     <div className="flex-1 flex items-center justify-between px-4 lg:px-8">
-                        <nav className="hidden md:flex space-x-1"> {/* Removed scrollbar and hide on mobile */}
+                        <nav className="hidden md:flex flex-wrap space-x-1 max-w-4xl overflow-hidden"> {/* Added flex-wrap and max-width */}
                             {navigation.map((item, index) => {
                                 const Icon = item.icon
                                 return (
@@ -71,7 +71,7 @@ const Navbar = () => {
                                     >
                                         <a
                                             href={item.href}
-                                            className={`flex items-center space-x-1 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${isActive(item.href)
+                                            className={`flex items-center space-x-1 px-2 py-1.5 rounded-full text-xs font-medium transition-all duration-300 whitespace-nowrap ${isActive(item.href)
                                                 ? 'text-white bg-white/20 border border-white/30 shadow-neon'
                                                 : 'text-gray-300 hover:text-white hover:bg-white/10 hover:shadow-neon'
                                                 }`}
