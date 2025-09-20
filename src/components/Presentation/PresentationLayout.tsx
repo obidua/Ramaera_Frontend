@@ -159,28 +159,6 @@ export const PresentationLayout: React.FC = () => {
           </motion.button>
         </div>
 
-        {/* Center - Progress Bar */}
-        <div className="flex-1 max-w-xs sm:max-w-md mx-2 sm:mx-8">
-          <div className="cyber-card p-2">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs sm:text-sm text-gray-400 font-['Orbitron']">
-                SLIDE {currentSlide + 1} OF {totalSlides}
-              </span>
-              <span className="text-xs sm:text-sm text-gray-400">
-                {Math.round(((currentSlide + 1) / totalSlides) * 100)}%
-              </span>
-            </div>
-            <div className="w-full bg-gray-800 rounded-full h-2">
-              <motion.div
-                className="bg-gradient-to-r from-white to-accent-500 h-2 rounded-full"
-                initial={{ width: 0 }}
-                animate={{ width: `${((currentSlide + 1) / totalSlides) * 100}%` }}
-                transition={{ duration: 0.3 }}
-              />
-            </div>
-          </div>
-        </div>
-
         {/* Right Controls */}
         <div className="flex items-center space-x-1 sm:space-x-3">
           <motion.button
