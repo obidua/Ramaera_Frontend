@@ -124,7 +124,7 @@ export const PresentationLayout: React.FC = () => {
     }`}>
       {/* Navigation Controls */}
       <motion.div
-        className={`fixed left-4 right-4 z-50 flex items-center justify-between transition-all duration-300 ${
+        className={`fixed left-2 right-2 sm:left-4 sm:right-4 z-50 flex items-center justify-between transition-all duration-300 ${
           isFullScreen ? 'top-4' : 'top-4'
         }`}
         initial={{ y: -100 }}
@@ -132,7 +132,7 @@ export const PresentationLayout: React.FC = () => {
         transition={{ duration: 0.5 }}
       >
         {/* Left Controls */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-1 sm:space-x-3">
           <motion.button
             onClick={() => {
               if (isFullScreen) {
@@ -140,33 +140,33 @@ export const PresentationLayout: React.FC = () => {
               }
               navigate('/');
             }}
-            className="cyber-card p-3 hover:border-white/40 transition-all duration-200"
+            className="cyber-card p-2 sm:p-3 hover:border-white/40 transition-all duration-200"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             title="Exit Presentation"
           >
-            {isFullScreen ? <X className="h-5 w-5 text-white" /> : <Home className="h-5 w-5 text-white" />}
+            {isFullScreen ? <X className="h-4 w-4 sm:h-5 sm:w-5 text-white" /> : <Home className="h-4 w-4 sm:h-5 sm:w-5 text-white" />}
           </motion.button>
 
           <motion.button
             onClick={resetPresentation}
-            className="cyber-card p-3 hover:border-white/40 transition-all duration-200"
+            className="cyber-card p-2 sm:p-3 hover:border-white/40 transition-all duration-200"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             title="Reset to First Slide"
           >
-            <RotateCcw className="h-5 w-5 text-white" />
+            <RotateCcw className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
           </motion.button>
         </div>
 
         {/* Center - Progress Bar */}
-        <div className="flex-1 max-w-md mx-8">
+        <div className="flex-1 max-w-xs sm:max-w-md mx-2 sm:mx-8">
           <div className="cyber-card p-2">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs text-gray-400 font-['Orbitron']">
+              <span className="text-xs sm:text-sm text-gray-400 font-['Orbitron']">
                 SLIDE {currentSlide + 1} OF {totalSlides}
               </span>
-              <span className="text-xs text-gray-400">
+              <span className="text-xs sm:text-sm text-gray-400">
                 {Math.round(((currentSlide + 1) / totalSlides) * 100)}%
               </span>
             </div>
@@ -182,7 +182,7 @@ export const PresentationLayout: React.FC = () => {
         </div>
 
         {/* Right Controls */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-1 sm:space-x-3">
           <motion.button
             onClick={() => setIsAutoPlay(!isAutoPlay)}
             className={`cyber-card p-3 transition-all duration-200 ${
@@ -193,9 +193,9 @@ export const PresentationLayout: React.FC = () => {
             title={isAutoPlay ? "Pause Auto-play" : "Start Auto-play"}
           >
             {isAutoPlay ? (
-              <Pause className="h-5 w-5 text-accent-400" />
+              <Pause className="h-4 w-4 sm:h-5 sm:w-5 text-accent-400" />
             ) : (
-              <Play className="h-5 w-5 text-white" />
+              <Play className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
             )}
           </motion.button>
 
@@ -212,9 +212,9 @@ export const PresentationLayout: React.FC = () => {
             title={isFullScreen ? "Exit Fullscreen (F)" : "Enter Fullscreen (F)"}
           >
             {isFullScreen ? (
-              <Minimize className="h-5 w-5 text-green-400" />
+              <Minimize className="h-4 w-4 sm:h-5 sm:w-5 text-green-400" />
             ) : (
-              <Maximize className="h-5 w-5 text-white" />
+              <Maximize className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
             )}
           </motion.button>
         </div>
@@ -240,36 +240,36 @@ export const PresentationLayout: React.FC = () => {
 
       {/* Navigation Buttons */}
       <motion.div
-        className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50"
+        className="fixed bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-50"
         initial={{ y: 100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-2 sm:space-x-4">
           <motion.button
             onClick={() => setCurrentSlide(0)}
             disabled={currentSlide === 0}
-            className="cyber-card p-3 disabled:opacity-50 disabled:cursor-not-allowed hover:border-white/40 transition-all duration-200"
+            className="cyber-card p-2 sm:p-3 disabled:opacity-50 disabled:cursor-not-allowed hover:border-white/40 transition-all duration-200"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             title="First Slide"
           >
-            <SkipBack className="h-5 w-5 text-white" />
+            <SkipBack className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
           </motion.button>
 
           <motion.button
             onClick={prevSlide}
             disabled={currentSlide === 0}
-            className="cyber-card p-4 disabled:opacity-50 disabled:cursor-not-allowed hover:border-white/40 transition-all duration-200"
+            className="cyber-card p-3 sm:p-4 disabled:opacity-50 disabled:cursor-not-allowed hover:border-white/40 transition-all duration-200"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             title="Previous Slide"
           >
-            <ChevronLeft className="h-6 w-6 text-white" />
+            <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
           </motion.button>
 
-          <div className="cyber-card px-6 py-3">
-            <span className="text-white font-bold font-['Orbitron']">
+          <div className="cyber-card px-3 sm:px-6 py-2 sm:py-3">
+            <span className="text-sm sm:text-base text-white font-bold font-['Orbitron']">
               {currentSlide + 1} / {totalSlides}
             </span>
           </div>
@@ -277,23 +277,23 @@ export const PresentationLayout: React.FC = () => {
           <motion.button
             onClick={nextSlide}
             disabled={currentSlide === totalSlides - 1}
-            className="cyber-card p-4 disabled:opacity-50 disabled:cursor-not-allowed hover:border-white/40 transition-all duration-200"
+            className="cyber-card p-3 sm:p-4 disabled:opacity-50 disabled:cursor-not-allowed hover:border-white/40 transition-all duration-200"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             title="Next Slide"
           >
-            <ChevronRight className="h-6 w-6 text-white" />
+            <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
           </motion.button>
 
           <motion.button
             onClick={() => setCurrentSlide(totalSlides - 1)}
             disabled={currentSlide === totalSlides - 1}
-            className="cyber-card p-3 disabled:opacity-50 disabled:cursor-not-allowed hover:border-white/40 transition-all duration-200"
+            className="cyber-card p-2 sm:p-3 disabled:opacity-50 disabled:cursor-not-allowed hover:border-white/40 transition-all duration-200"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             title="Last Slide"
           >
-            <SkipForward className="h-5 w-5 text-white" />
+            <SkipForward className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
           </motion.button>
         </div>
       </motion.div>
@@ -301,7 +301,7 @@ export const PresentationLayout: React.FC = () => {
       {/* Slide Thumbnails - Hidden in fullscreen for cleaner view */}
       {!isFullScreen && (
         <motion.div
-          className="fixed right-4 top-1/2 transform -translate-y-1/2 z-40 max-h-96 overflow-y-auto"
+          className="hidden lg:block fixed right-4 top-1/2 transform -translate-y-1/2 z-40 max-h-96 overflow-y-auto"
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: 100, opacity: 0 }}
@@ -329,7 +329,7 @@ export const PresentationLayout: React.FC = () => {
       {/* Keyboard Shortcuts Help - Hidden in fullscreen */}
       {!isFullScreen && (
         <motion.div
-          className="fixed bottom-4 right-4 cyber-card p-3 text-xs text-gray-400"
+          className="hidden md:block fixed bottom-4 right-4 cyber-card p-3 text-xs text-gray-400"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -347,12 +347,12 @@ export const PresentationLayout: React.FC = () => {
       {/* Fullscreen Mode Indicator */}
       {isFullScreen && (
         <motion.div
-          className="fixed top-1/2 left-4 transform -translate-y-1/2 cyber-card p-2 z-40"
+          className="hidden sm:block fixed top-1/2 left-4 transform -translate-y-1/2 cyber-card p-2 z-40"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
         >
-          <div className="text-xs text-green-400 font-['Orbitron'] writing-mode-vertical">
+          <div className="text-xs text-green-400 font-['Orbitron']" style={{ writingMode: 'vertical-rl' }}>
             FULLSCREEN MODE
           </div>
         </motion.div>
