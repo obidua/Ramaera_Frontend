@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Home, Info, Building, Cog, Trophy, UserPlus, FileText, Phone, Zap } from 'lucide-react'
+import { Menu, X, Home, Info, Building, Cog, Trophy, UserPlus, FileText, Phone, Zap, Monitor } from 'lucide-react'
 import EnhLogo from './EnhLogo'
 import { useLocation } from 'react-router-dom'
 
@@ -16,6 +16,7 @@ const Navbar = () => {
         { name: 'Success Stories', href: '/success-stories', icon: Trophy },
         { name: 'Join Us', href: '/join', icon: UserPlus },
         { name: 'Apply for Factory', href: '/apply', icon: FileText },
+        { name: 'Presentation', href: '/presentation', icon: Monitor },
         { name: 'Contact', href: '/contact', icon: Phone },
     ]
 

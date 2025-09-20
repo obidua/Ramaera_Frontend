@@ -478,6 +478,7 @@ const Footer = () => {
                     { name: 'Success Stories', path: '/success-stories' },
                     { name: 'How it Works', path: '/how-it-works' },
                     { name: 'Apply Factory', path: '/apply' },
+                    { name: 'Presentation', path: '/presentation' },
                     { name: 'Admin Login', path: '/admin-login' },
                     { name: 'Contact', path: '/contact' },
                     { name: 'Spice Subscription', path: '/monthly-spice-subscription' }
